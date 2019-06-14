@@ -84,12 +84,6 @@ def functions_from_module(module):
 def execute_dq_function(current_function, arg, input, dq_funcs_list):
     is_passing = ''
     # search for function in dq list, execute with params
-    print(function_name)
-    print(arg)
-    print(str(arg))
-    print(len(arg))
-    print(input)
-    pdb.set_trace()
     for function in dq_funcs_list:
         function_object = function[1]
         dq_function = function[0]
@@ -109,7 +103,7 @@ def check_data_quality(field, dq_funcs_list, obj):
     '''
     # find dq checks to run
     try:
-        pdb.set_trace()
+        #pdb.set_trace()
         dq_list = obj['Data Quality Info']['data_quality_checks']
         print(dq_list)
         # run dq checks
@@ -152,6 +146,7 @@ def run_dq_checks(field, dq_funcs_list, source_col_sorted_dict):
 
 def execute_transform(current_function, arg1, arg2, input, transformations_list):
     result = ''
+    #pdb.set_trace()
     for function in transformations_list:
         function_object = function[1]
         transform_function = function[0]
@@ -173,17 +168,19 @@ def check_transform(field, transformations_list, obj):
     # find the corresponding transformation in dimension json
     try:
         specific_transform_function = obj['Transformation Info']['specific_transform_function']
-        pdb.set_trace()
+        #pdb.set_trace()
         arg = 'temp'
     except KeyError:
         print('This source field does not exist in the source to target json.')
 
 
 def run_transformations(field, transformations_list, source_col_sorted_dict):
+    pdb.set_trace()
     try:
         objs = source_col_sorted_dict[field.name]
         for obj in objs:
             result = check_transform(field, transformations_list, obj)
+            pdb.set_trace()
             field.record_transforms(result)
     except KeyError:
         print('Field name ' + field.name +' is not a source column so there are no transformations. \n\n\n')
@@ -193,7 +190,7 @@ def run_transformations(field, transformations_list, source_col_sorted_dict):
 
 
 def transform_field(field, source_col_sorted_dict):
-    pdb.set_trace()
+    #pdb.set_trace()
     '''
     Using the field name and value, run transformations and log to the field's log
     '''
@@ -238,7 +235,7 @@ def transform_stg2_table(engine, source_col_sorted_dict, table, dwetl_logger):
     session = Session()
 
     for row in session.query(table).all():
-        pdb.set_trace()
+        #pdb.set_trace()
         row_fields = transform_row(row)
         for field in row_fields:
             transform_field(field, source_col_sorted_dict)

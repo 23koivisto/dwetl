@@ -17,10 +17,9 @@ def is_mandatory(input):
 
 
 def is_numeric(input):
-    n = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    if (all(str(i) in input for i in n)):
-        return True
-# ^^^ doesn't work?
+#    n = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    return str(input).isnumeric()
+# ^^^ doesn't work? can we use isnumeric()?
 
 
 # checks if provided length is true
@@ -62,13 +61,14 @@ def trim(input):
 
 
 def is_valid_aleph_year(year):
+    year_slice = int(str(year)[0:4])
     current_year = datetime.datetime.now().year
-    if year not in range(1980, current_year+1):
+    if year_slice not in range(1980, current_year+1):
         return False
     else:
         return True
 # ^^^ exception doesn't seem to work, rewrote it to be a simple if/else. Can this be altered to then throw an error?
-
+# ^^^ does this need to account for year substrings? the json fields that use this check are full date fields
 # checks if valid date 1980-present
 
 

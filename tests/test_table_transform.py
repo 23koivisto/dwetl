@@ -71,21 +71,44 @@ class TestTableTransform(unittest.TestCase):
 
 #    def test_check_dq(self):
 
-    def test_exec_dq_func(self):
-        
+    def test_exec_dq_func_no_missing(self):
         dq_funcs_list = functions_from_module(dqs) + functions_from_module(dqu)
-
         #test no_missing_values
         self.assertTrue(execute_dq_function('no_missing_values','',20021124,dq_funcs_list))    
         self.assertFalse(execute_dq_function('no_missing_values','',0,dq_funcs_list))    
 
-        #test dq_z13_user_defined_2
+    def test_exec_dq_func_user_defined_2(self):
+        dq_funcs_list = functions_from_module(dqs) + functions_from_module(dqu)
+        #test dq_z13u_user_defined_2
         self.assertTrue(execute_dq_function('dq_z13u_user_defined_2','','ocm00024372',dq_funcs_list))
         self.assertFalse(execute_dq_function('dq_z13u_user_defined_2','','ocm333',dq_funcs_list))
         self.assertTrue(execute_dq_function('dq_z13u_user_defined_2','','ocn464584694',dq_funcs_list))
         self.assertTrue(execute_dq_function('dq_z13u_user_defined_2','','on1245789453',dq_funcs_list))
         
+    def test_exec_dq_func_no_missing(self):
+        dq_funcs_list = functions_from_module(dqs) + functions_from_module(dqu)
+        #test dq_z13u_user_defined_10
+        self.assertEqual(execute_dq_function('dq_z13u_user_defined_10_valid_holding_own_code','','FS',dq_funcs_list),'Frostburg State Superholding')
+#        self.assertEqual(execute_dq_function('dq_z13u_user_defined_10_valid_holding_own_code','','',dq_funcs_list),'')
+        #^^we need an entry to handle null values. Looking at MAI60.z13u_user_defined_10 there seems to be several with no values
+
+    def test_exec_dq_func_is_numeric(self):
+        dq_funcs_list = functions_from_module(dqs) + functions_from_module(dqu)
+        #test dq_z13u_user_defined_10
+        self.assertTrue(execute_dq_function('is_numeric','','000000178000010',dq_funcs_list))
+        self.assertFalse(execute_dq_function('is_numeric','','OOOOOO178000010',dq_funcs_list))
+
+    def test_is_valid_aleph_year(self):
+        dq_funcs_list = functions_from_module(dqs) + functions_from_module(dqu)
+        #test is_valid_aleph_year
+        self.assertTrue(execute_dq_function('is_valid_aleph_year','',20020101,dq_funcs_list))
+        self.assertFalse(execute_dq_function('is_valid_aleph_year','',19750102,dq_funcs_list))
+
+#test transform functions
+    def test_transform
 #    def test_check_data_quality():
+
+
 
         # when there's no dq check, field.value is used
 
