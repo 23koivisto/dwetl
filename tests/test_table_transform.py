@@ -105,7 +105,21 @@ class TestTableTransform(unittest.TestCase):
         self.assertFalse(execute_dq_function('is_valid_aleph_year','',19750102,dq_funcs_list))
 
 #test transform functions
-    def test_transform
+    def test_exec_transform(self):
+        transformation_list = functions_from_module(stf)
+        a = TransformField('in_z13u_user_defined_2','ocm00123123')
+        b = TransformField('in_z13u_user_defined_2','ocn123123123')
+        self.assertEqual(execute_transform('remove_ocm_ocn_on', '', '', a, transformation_list),'00123123')
+        self.assertEqual(execute_transform('remove_ocm_ocn_on', '', '', b, transformation_list),'123123123')
+
+    def test_check_transform(self):
+        transformation_list = functions_from_module(stf)
+        a = TransformField('in_z13u_user_defined_2','ocm00123123')
+        test_obj = data_source_col_sorted[a.name][0]
+        transform_result = {'name': 'remove_ocm_ocn_on', 'result': '00123123'}
+        #pdb.set_trace()
+        self.assertEqual(check_transform(a,transformation_list,test_obj),transform_result)
+
 #    def test_check_data_quality():
 
 

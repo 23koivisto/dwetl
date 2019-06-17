@@ -19,7 +19,7 @@ import data_quality_utilities as dqu
 import specific_transform_functions as stf
 
 
-# use pdb.set_trace() to set breakpoint
+# use  to set breakpoint
 
 """
 Scroll down to the main function: transform_stg2_table
@@ -140,7 +140,7 @@ def run_dq_checks(field, dq_funcs_list, source_col_sorted_dict):
 
 def execute_transform(current_function, arg1, arg2, field, transformations_list):
     result = ''
-    #pdb.set_trace()
+    
     for function in transformations_list:
         function_object = function[1]
         transform_function = function[0]
@@ -154,6 +154,7 @@ def execute_transform(current_function, arg1, arg2, field, transformations_list)
                 result = function_object(field, arg1)
             else:
                 break
+                
     return result
 
 def check_transform(field, transformations_list, obj):
@@ -168,21 +169,22 @@ def check_transform(field, transformations_list, obj):
         arg2 = obj.get('specific_transform_function_param2')
         t_result = execute_transform(specific_transform_function, arg1, arg2, field, transformations_list)
         result = {'name': specific_transform_function, 'result': t_result}
+        #pdb.set_trace()
         return result
     except KeyError:
         print('This source field does not exist in the source to target json.')
 
 
 def run_transformations(field, transformations_list, source_col_sorted_dict):
-    pdb.set_trace()
+    #
     try:
         objs = source_col_sorted_dict[field.name]
+        #pdb.set_trace()
         for obj in objs:
+            #pdb.set_trace()
             result = check_transform(field, transformations_list, obj)
-            field.record_transforms(result)
-            print(result)
-            pdb.set_trace()
             field.record_transform(result)
+            
     except KeyError:
         print('Field name ' + field.name +' is not a source column so there are no transformations. \n\n\n')
 

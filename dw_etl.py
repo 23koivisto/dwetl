@@ -128,8 +128,8 @@ bib_rec_stg1_tables = {
 #
 bib_rec_stg2_tables = {
 #     'bib_rec_z00': Base.classes.dw_stg_2_bib_rec_z00,
-     'bib_rec_z13': Base.classes.dw_stg_2_bib_rec_z13
-     'bib_rec_z13u': Base.classes.dw_stg_2_bib_rec_z13u,
+#     'bib_rec_z13': Base.classes.dw_stg_2_bib_rec_z13,
+     'bib_rec_z13u': Base.classes.dw_stg_2_bib_rec_z13u
 #     'bib_rec_z30u': Base.classes.dw_stg_2_lbry_item_z30
 #     'bib_rec_z00_field': Base.classes.dw_stg_2_bib_rec_z00_field,
      }
